@@ -1,0 +1,21 @@
+name: mongol_code_converter
+description: A Unicode code conversion utility for Flutter
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mongol_code: ^0.2.0
+  provider_architecture: ^1.0.5
+  get_it: ^3.1.0
+
+flutter:
+  uses-material-design: true
