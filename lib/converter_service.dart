@@ -15,11 +15,18 @@ class ConverterServiceImpl implements ConverterService {
     }
 
     final unicodeConverter = MongolCode.instance;
-    final menksoftText = unicodeConverter.unicodeToMenksoft(unicodeText);
+    final ugeiBugFix = findAndReplaceNnbsUgei (unicodeText);
+    final menksoftText = unicodeConverter.unicodeToMenksoft(ugeiBugFix);
 
     final cmsConverter = CmsCode.instance;
     final cmsText = cmsConverter.menksoftToCms(menksoftText);
     return cmsText;
+  }
+
+  String findAndReplaceNnbsUgei(String unicodeText) {
+    final withNnbs = ' ᠦᠭᠡᠢ';
+    final withSpace = ' ᠦᠭᠡᠢ';
+    return unicodeText.replaceAll(withNnbs, withSpace);
   }
 
 }

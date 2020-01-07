@@ -1,5 +1,6 @@
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mongol_code/mongol_code.dart';
 import 'package:mongol_code_converter/converter_service.dart';
 
 void main() {
@@ -151,6 +152,28 @@ void main() {
       final unicodeText = 'ᠤᠷᠭ᠎ᠠ';
       final actual = await converter.convertUnicodeToCmsCode(unicodeText);
       final expected = 'for)T';
+      expect(actual, expected);
+    },
+  );
+
+  test(
+    'word test: ugei',
+        () async {
+      final converter = ConverterServiceImpl();
+      final unicodeText = String.fromCharCode(Unicode.NNBS) + 'ᠦᠭᠡᠢ';
+      final actual = await converter.convertUnicodeToCmsCode(unicodeText);
+      final expected = ' foikEI';
+      expect(actual, expected);
+    },
+  );
+
+  test(
+    'word test: replace all ugei',
+        () async {
+      final converter = ConverterServiceImpl();
+      final unicodeText = 'asf ᠦᠭᠡᠢ adfasd asdfa ᠦᠭᠡᠢadfsdf';
+      final actual = await converter.convertUnicodeToCmsCode(unicodeText);
+      final expected = 'asf foikEI adfasd asdfa foikEIadfsdf';
       expect(actual, expected);
     },
   );
