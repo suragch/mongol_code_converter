@@ -178,4 +178,15 @@ void main() {
     },
   );
 
+  test(
+    'word test: yamar',
+        () async {
+      final converter = ConverterServiceImpl();
+      final unicodeText = 'ᠶᠠᠮᠠᠷ';
+      final actual = await converter.convertUnicodeToCmsCode(unicodeText);
+      final expected = 'Yeme*';
+      expect(actual, expected);
+    },
+  );
+
 }
