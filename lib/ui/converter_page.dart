@@ -53,7 +53,25 @@ class _ConverterPageState extends State<ConverterPage> {
                     final cms = await model.convertUnicodeToCmsCode(unicode);
                     textController.text = cms;
                   },
-                )
+                ),
+                Spacer(),
+                RaisedButton(
+                  child: Text('Unicode -> Menksoft'),
+                  onPressed: () async {
+                    final unicode = textController.text;
+                    final menksoft = await model.convertUnicodeToMenksoft(unicode);
+                    textController.text = menksoft;
+                  },
+                ),
+                SizedBox(width: 10),
+                RaisedButton(
+                  child: Text('Menksoft -> Unicode'),
+                  onPressed: () async {
+                    final menksoft = textController.text;
+                    final unicode = await model.convertMenksoftToUnicode(menksoft);
+                    textController.text = unicode;
+                  },
+                ),
               ],
             )
           ],

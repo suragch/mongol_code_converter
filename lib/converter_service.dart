@@ -4,6 +4,8 @@ import 'cms_code.dart';
 
 abstract class ConverterService {
   Future<String> convertUnicodeToCmsCode(String unicodeText);
+  Future<String> convertUnicodeToMenksoft(String unicode);
+  Future<String> convertMenksoftToUnicode(String menksoft);
 }
 
 class ConverterServiceImpl implements ConverterService {
@@ -27,6 +29,24 @@ class ConverterServiceImpl implements ConverterService {
     final withNnbs = ' ᠦᠭᠡᠢ';
     final withSpace = ' ᠦᠭᠡᠢ';
     return unicodeText.replaceAll(withNnbs, withSpace);
+  }
+
+  @override
+  Future<String> convertMenksoftToUnicode(String menksoft) async {
+    if (menksoft == null) {
+      return '';
+    }
+    final converter = MongolCode.instance;
+    return converter.menksoftToUnicode(menksoft);
+  }
+
+  @override
+  Future<String> convertUnicodeToMenksoft(String unicode) async {
+    if (unicode == null) {
+      return '';
+    }
+    final converter = MongolCode.instance;
+    return converter.unicodeToMenksoft(unicode);
   }
 
 }

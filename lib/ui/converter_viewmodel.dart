@@ -7,7 +7,14 @@ class ConverterViewModel extends ChangeNotifier {
   final converterService = serviceLocator<ConverterService>();
 
   Future<String> convertUnicodeToCmsCode(String unicodeText) async {
-    final cmsText = await converterService.convertUnicodeToCmsCode(unicodeText);
-    return cmsText;
+    return await converterService.convertUnicodeToCmsCode(unicodeText);
+  }
+
+  Future<String> convertUnicodeToMenksoft(String unicode) async {
+    return await converterService.convertUnicodeToMenksoft(unicode);
+  }
+
+  Future<String> convertMenksoftToUnicode(String menksoft) async {
+    return await converterService.convertMenksoftToUnicode(menksoft);
   }
 }
