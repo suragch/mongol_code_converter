@@ -9,7 +9,7 @@ class CmsCode {
 
   static const int SPACE = 0x0020;
 
-  Future<String> menksoftToCms(String menksoftText) async {
+  String menksoftToCms(String menksoftText) {
     if (menksoftText == null) return '';
 
     final outputString = StringBuffer();

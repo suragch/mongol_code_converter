@@ -3,15 +3,15 @@ import 'package:mongol_code/mongol_code.dart';
 import 'cms_code.dart';
 
 abstract class ConverterService {
-  Future<String> convertUnicodeToCmsCode(String unicodeText);
-  Future<String> convertUnicodeToMenksoft(String unicode);
-  Future<String> convertMenksoftToUnicode(String menksoft);
+  String convertUnicodeToCmsCode(String unicodeText);
+  String convertUnicodeToMenksoft(String unicode);
+  String convertMenksoftToUnicode(String menksoft);
 }
 
 class ConverterServiceImpl implements ConverterService {
 
   @override
-  Future<String> convertUnicodeToCmsCode(String unicodeText) async {
+  String convertUnicodeToCmsCode(String unicodeText) {
     if (unicodeText == null) {
       return '';
     }
@@ -32,7 +32,7 @@ class ConverterServiceImpl implements ConverterService {
   }
 
   @override
-  Future<String> convertMenksoftToUnicode(String menksoft) async {
+  String convertMenksoftToUnicode(String menksoft) {
     if (menksoft == null) {
       return '';
     }
@@ -41,7 +41,7 @@ class ConverterServiceImpl implements ConverterService {
   }
 
   @override
-  Future<String> convertUnicodeToMenksoft(String unicode) async {
+  String convertUnicodeToMenksoft(String unicode) {
     if (unicode == null) {
       return '';
     }

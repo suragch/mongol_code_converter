@@ -3,18 +3,31 @@ import 'package:mongol_code_converter/converter_service.dart';
 import 'package:mongol_code_converter/service_locator.dart';
 
 class ConverterViewModel extends ChangeNotifier {
-
   final converterService = serviceLocator<ConverterService>();
 
-  Future<String> convertUnicodeToCmsCode(String unicodeText) async {
-    return await converterService.convertUnicodeToCmsCode(unicodeText);
+  final textNotifier = TextNotifier();
+
+  void convertUnicodeToCmsCode() {
+    var text = converterService.convertMenksoftToUnicode(textNotifier.value);
+    text = converterService.convertUnicodeToCmsCode(textNotifier.value);
+    textNotifier.setText(text);
   }
 
-  Future<String> convertUnicodeToMenksoft(String unicode) async {
-    return await converterService.convertUnicodeToMenksoft(unicode);
+  void convertUnicodeToMenksoft() {
+    final text = converterService.convertUnicodeToMenksoft(textNotifier.value);
+    textNotifier.setText(text);
   }
 
-  Future<String> convertMenksoftToUnicode(String menksoft) async {
-    return await converterService.convertMenksoftToUnicode(menksoft);
+  void convertMenksoftToUnicode() {
+    final text = converterService.convertMenksoftToUnicode(textNotifier.value);
+    textNotifier.setText(text);
+  }
+}
+
+class TextNotifier extends ValueNotifier<String> {
+  TextNotifier() : super('');
+
+  void setText(String text) {
+    value = text;
   }
 }
