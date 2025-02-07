@@ -1,27 +1,14 @@
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mongol_code/mongol_code.dart';
 import 'package:mongol_code_converter/converter_service.dart';
 
 void main() {
-
   test(
     'empty string returns empty string',
     () async {
       final converter = ConverterServiceImpl();
       final unicodeText = '';
-      final actual = await converter.convertUnicodeToCmsCode(unicodeText);
-      final expected = '';
-      expect(actual, expected);
-    },
-  );
-
-  test(
-    'null returns empty string',
-        () async {
-      final converter = ConverterServiceImpl();
-      final unicodeText = null;
-      final actual = await converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertUnicodeToCmsCode(unicodeText);
       final expected = '';
       expect(actual, expected);
     },
@@ -29,10 +16,10 @@ void main() {
 
   test(
     'ASCII returns same result',
-        () async {
+    () async {
       final converter = ConverterServiceImpl();
       final unicodeText = 'abc';
-      final actual = await converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertUnicodeToCmsCode(unicodeText);
       final expected = 'abc';
       expect(actual, expected);
     },
@@ -40,40 +27,21 @@ void main() {
 
   test(
     'Mongolian Unicode returns CMs code',
-        () async {
+    () async {
       final converter = ConverterServiceImpl();
       final unicodeText = 'ᠮᠣᠩᠭᠣᠯ';
-      final actual = await converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertUnicodeToCmsCode(unicodeText);
       final expected = 'Moehgo&';
       expect(actual, expected);
     },
   );
 
-//  test(
-//    'Every Menksoft character gets converted',
-//        () async {
-//      final converter = ConverterServiceImpl();
-//      final start = Menksoft.MENKSOFT_START;
-//      final end = Menksoft.MENKSOFT_END;
-//      for (var codeUnit = start; codeUnit <= end; codeUnit++) {
-//        final menksoftChar = String.fromCharCode(codeUnit);
-//        final cmsChar = await converter.convertUnicodeToCmsCode(menksoftChar);
-//        final cmsCodeUnit = cmsChar.codeUnitAt(0);
-//        final isMenksoft = cmsCodeUnit >= start && cmsCodeUnit <= end;
-//        if (isMenksoft) {
-//          print(codeUnit);
-//        }
-//        expect(isMenksoft, false);
-//      }
-//    },
-//  );
-
   test(
     'word test: shinee',
-        () async {
+    () async {
       final converter = ConverterServiceImpl();
       final unicodeText = 'ᠰᠢᠨ᠎ᠡ';
-      final actual = await converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertUnicodeToCmsCode(unicodeText);
       final expected = 'Si%T';
       expect(actual, expected);
     },
@@ -81,32 +49,21 @@ void main() {
 
   test(
     'word test: wolf',
-        () async {
+    () async {
       final converter = ConverterServiceImpl();
       final unicodeText = 'ᠴᠢᠨᠣ᠎ᠡ';
-      final actual = await converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertUnicodeToCmsCode(unicodeText);
       final expected = 'CinOT';
       expect(actual, expected);
     },
   );
 
-//  test(
-//    'word test: malla',
-//        () async {
-//      final converter = ConverterServiceImpl();
-//      final unicodeText = 'ᠮᠠᠯᠯᠠ';
-//      final actual = await converter.convertUnicodeToCmsCode(unicodeText);
-//      final expected = 'MexXa';
-//      expect(actual, expected);
-//    },
-//  );
-
   test(
     'word test: bi',
-        () async {
+    () async {
       final converter = ConverterServiceImpl();
       final unicodeText = 'ᠪᠢ';
-      final actual = await converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertUnicodeToCmsCode(unicodeText);
       final expected = 'buA';
       expect(actual, expected);
     },
@@ -114,10 +71,10 @@ void main() {
 
   test(
     'word test: bol',
-        () async {
+    () async {
       final converter = ConverterServiceImpl();
       final unicodeText = 'ᠪᠣᠯ';
-      final actual = await converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertUnicodeToCmsCode(unicodeText);
       final expected = 'B&';
       expect(actual, expected);
     },
@@ -125,10 +82,10 @@ void main() {
 
   test(
     'word test: bichig',
-        () async {
+    () async {
       final converter = ConverterServiceImpl();
       final unicodeText = 'ᠪᠢᠴᠢᠭ';
-      final actual = await converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertUnicodeToCmsCode(unicodeText);
       final expected = 'buciit';
       expect(actual, expected);
     },
@@ -136,10 +93,10 @@ void main() {
 
   test(
     'word test: Beijing',
-        () async {
+    () async {
       final converter = ConverterServiceImpl();
       final unicodeText = 'ᠪᠧᠵᠢᠩ';
-      final actual = await converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertUnicodeToCmsCode(unicodeText);
       final expected = 'b`jieit';
       expect(actual, expected);
     },
@@ -147,10 +104,10 @@ void main() {
 
   test(
     'word test: orga',
-        () async {
+    () async {
       final converter = ConverterServiceImpl();
       final unicodeText = 'ᠤᠷᠭ᠎ᠠ';
-      final actual = await converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertUnicodeToCmsCode(unicodeText);
       final expected = 'for)T';
       expect(actual, expected);
     },
@@ -158,10 +115,10 @@ void main() {
 
   test(
     'word test: ugei',
-        () async {
+    () async {
       final converter = ConverterServiceImpl();
       final unicodeText = String.fromCharCode(Unicode.NNBS) + 'ᠦᠭᠡᠢ';
-      final actual = await converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertUnicodeToCmsCode(unicodeText);
       final expected = ' foikEI';
       expect(actual, expected);
     },
@@ -169,10 +126,10 @@ void main() {
 
   test(
     'word test: replace all ugei',
-        () async {
+    () async {
       final converter = ConverterServiceImpl();
       final unicodeText = 'asf ᠦᠭᠡᠢ adfasd asdfa ᠦᠭᠡᠢadfsdf';
-      final actual = await converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertUnicodeToCmsCode(unicodeText);
       final expected = 'asf foikEI adfasd asdfa foikEIadfsdf';
       expect(actual, expected);
     },
@@ -180,13 +137,12 @@ void main() {
 
   test(
     'word test: yamar',
-        () async {
+    () async {
       final converter = ConverterServiceImpl();
       final unicodeText = 'ᠶᠠᠮᠠᠷ';
-      final actual = await converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertUnicodeToCmsCode(unicodeText);
       final expected = 'Yeme*';
       expect(actual, expected);
     },
   );
-
 }
