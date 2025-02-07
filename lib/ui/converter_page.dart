@@ -5,13 +5,13 @@ import 'package:flutter/services.dart';
 
 class ConverterPage extends StatefulWidget {
   @override
-  _ConverterPageState createState() => _ConverterPageState();
+  State<ConverterPage> createState() => _ConverterPageState();
 }
 
 class _ConverterPageState extends State<ConverterPage> {
   final ConverterViewModel viewModel = ConverterViewModel();
   final menksoftTextStyle = TextStyle(fontFamily: 'menksoft', fontSize: 20);
-  TextStyle currentTextStyle;
+  TextStyle? currentTextStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,7 @@ class _ConverterPageState extends State<ConverterPage> {
                 icon: Icon(Icons.paste),
                 onPressed: () async {
                   final data = await Clipboard.getData(Clipboard.kTextPlain);
-                  viewModel.textNotifier.setText(data.text);
+                  viewModel.textNotifier.setText(data?.text);
                 },
               ),
               SizedBox(width: 8),

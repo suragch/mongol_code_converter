@@ -9,15 +9,10 @@ abstract class ConverterService {
 }
 
 class ConverterServiceImpl implements ConverterService {
-
   @override
   String convertUnicodeToCmsCode(String unicodeText) {
-    if (unicodeText == null) {
-      return '';
-    }
-
     final unicodeConverter = MongolCode.instance;
-    final ugeiBugFix = findAndReplaceNnbsUgei (unicodeText);
+    final ugeiBugFix = findAndReplaceNnbsUgei(unicodeText);
     final menksoftText = unicodeConverter.unicodeToMenksoft(ugeiBugFix);
 
     final cmsConverter = CmsCode.instance;
@@ -33,20 +28,13 @@ class ConverterServiceImpl implements ConverterService {
 
   @override
   String convertMenksoftToUnicode(String menksoft) {
-    if (menksoft == null) {
-      return '';
-    }
     final converter = MongolCode.instance;
     return converter.menksoftToUnicode(menksoft);
   }
 
   @override
   String convertUnicodeToMenksoft(String unicode) {
-    if (unicode == null) {
-      return '';
-    }
     final converter = MongolCode.instance;
     return converter.unicodeToMenksoft(unicode);
   }
-
 }

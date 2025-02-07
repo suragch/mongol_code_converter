@@ -4,18 +4,19 @@ description: A Unicode code conversion utility for Flutter
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  mongol_code: ^0.3.0
+  mongol: ^8.0.0
+  get_it: ^8.0.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mongol_code: ^0.3.0-nullsafety.0
-  mongol: ^1.1.0
-  get_it: ^6.0.0
+  flutter_lints: ^5.0.0
 
 flutter:
   uses-material-design: true

@@ -27,7 +27,7 @@ class ConverterViewModel extends ChangeNotifier {
 class TextNotifier extends ValueNotifier<String> {
   TextNotifier() : super('');
 
-  void setText(String text) {
-    value = text;
+  void setText(String? text) {
+    value = text ?? '';
   }
 }
