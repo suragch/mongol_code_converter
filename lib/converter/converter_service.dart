@@ -1,15 +1,8 @@
 import 'package:mongol_code/mongol_code.dart';
 
-import 'cms_code.dart';
+import 'cms/cms_code.dart';
 
-abstract class ConverterService {
-  String convertUnicodeToCmsCode(String unicodeText);
-  String convertUnicodeToMenksoft(String unicode);
-  String convertMenksoftToUnicode(String menksoft);
-}
-
-class ConverterServiceImpl implements ConverterService {
-  @override
+class ConverterService {
   String convertUnicodeToCmsCode(String unicodeText) {
     final unicodeConverter = MongolCode.instance;
     final ugeiBugFix = findAndReplaceNnbsUgei(unicodeText);
@@ -26,13 +19,11 @@ class ConverterServiceImpl implements ConverterService {
     return unicodeText.replaceAll(withNnbs, withSpace);
   }
 
-  @override
   String convertMenksoftToUnicode(String menksoft) {
     final converter = MongolCode.instance;
     return converter.menksoftToUnicode(menksoft);
   }
 
-  @override
   String convertUnicodeToMenksoft(String unicode) {
     final converter = MongolCode.instance;
     return converter.unicodeToMenksoft(unicode);

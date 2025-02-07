@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:mongol/mongol.dart';
-import 'converter_viewmodel.dart';
+import 'converter_manager.dart';
 import 'package:flutter/services.dart';
 
 class ConverterPage extends StatefulWidget {
+  const ConverterPage({super.key});
+
   @override
   State<ConverterPage> createState() => _ConverterPageState();
 }
 
 class _ConverterPageState extends State<ConverterPage> {
-  final ConverterViewModel viewModel = ConverterViewModel();
+  final manager = ConverterManager();
   final menksoftTextStyle = TextStyle(fontFamily: 'menksoft', fontSize: 20);
   TextStyle? currentTextStyle;
 
@@ -34,7 +36,7 @@ class _ConverterPageState extends State<ConverterPage> {
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: ValueListenableBuilder<String>(
-                  valueListenable: viewModel.textNotifier,
+                  valueListenable: manager.textNotifier,
                   builder: (context, text, child) {
                     return MongolText(
                       text,
@@ -52,7 +54,7 @@ class _ConverterPageState extends State<ConverterPage> {
                 child: Text('Unicode'),
                 onPressed: () {
                   currentTextStyle = null;
-                  viewModel.convertMenksoftToUnicode();
+                  manager.convertMenksoftToUnicode();
                 },
               ),
               SizedBox(width: 8),
@@ -60,7 +62,7 @@ class _ConverterPageState extends State<ConverterPage> {
                 child: Text('Menksoft'),
                 onPressed: () {
                   currentTextStyle = menksoftTextStyle;
-                  viewModel.convertUnicodeToMenksoft();
+                  manager.convertUnicodeToMenksoft();
                 },
               ),
               SizedBox(width: 8),
@@ -68,7 +70,7 @@ class _ConverterPageState extends State<ConverterPage> {
                 child: Text('CMS'),
                 onPressed: () {
                   currentTextStyle = null;
-                  viewModel.convertUnicodeToCmsCode();
+                  manager.convertUnicodeToCmsCode();
                 },
               ),
             ],
@@ -79,7 +81,7 @@ class _ConverterPageState extends State<ConverterPage> {
                 icon: Icon(Icons.paste),
                 onPressed: () async {
                   final data = await Clipboard.getData(Clipboard.kTextPlain);
-                  viewModel.textNotifier.setText(data?.text);
+                  manager.textNotifier.setText(data?.text);
                 },
               ),
               SizedBox(width: 8),
@@ -87,7 +89,7 @@ class _ConverterPageState extends State<ConverterPage> {
                 icon: Icon(Icons.copy),
                 onPressed: () {
                   Clipboard.setData(
-                    ClipboardData(text: viewModel.textNotifier.value),
+                    ClipboardData(text: manager.textNotifier.value),
                   );
                 },
               ),
@@ -95,7 +97,7 @@ class _ConverterPageState extends State<ConverterPage> {
               IconButton(
                 icon: Icon(Icons.clear),
                 onPressed: () {
-                  viewModel.textNotifier.setText('');
+                  manager.textNotifier.setText('');
                 },
               ),
             ],

@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
-import 'package:mongol_code_converter/converter_service.dart';
+import 'package:mongol_code_converter/converter/converter_service.dart';
 import 'package:mongol_code_converter/service_locator.dart';
 
-class ConverterViewModel extends ChangeNotifier {
+class ConverterManager extends ChangeNotifier {
   final converterService = serviceLocator<ConverterService>();
 
   final textNotifier = TextNotifier();
