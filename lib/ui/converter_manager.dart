@@ -1,25 +1,24 @@
 import 'package:flutter/foundation.dart';
 import 'package:mongol_code_converter/converter/converter_service.dart';
-import 'package:mongol_code_converter/service_locator.dart';
 
 class ConverterManager extends ChangeNotifier {
-  final converterService = serviceLocator<ConverterService>();
+  final converter = ConverterService();
 
   final textNotifier = TextNotifier();
 
   void convertUnicodeToCmsCode() {
-    var text = converterService.convertMenksoftToUnicode(textNotifier.value);
-    text = converterService.convertUnicodeToCmsCode(textNotifier.value);
+    var text = converter.convertMenksoftToUnicode(textNotifier.value);
+    text = converter.convertUnicodeToCmsCode(textNotifier.value);
     textNotifier.setText(text);
   }
 
   void convertUnicodeToMenksoft() {
-    final text = converterService.convertUnicodeToMenksoft(textNotifier.value);
+    final text = converter.convertUnicodeToMenksoft(textNotifier.value);
     textNotifier.setText(text);
   }
 
   void convertMenksoftToUnicode() {
-    final text = converterService.convertMenksoftToUnicode(textNotifier.value);
+    final text = converter.convertMenksoftToUnicode(textNotifier.value);
     textNotifier.setText(text);
   }
 }
