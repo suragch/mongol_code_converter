@@ -8,7 +8,7 @@ void main() {
     () async {
       final converter = ConverterService();
       final unicodeText = '';
-      final actual = converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertToCmsCode(unicodeText);
       final expected = '';
       expect(actual, expected);
     },
@@ -19,7 +19,7 @@ void main() {
     () async {
       final converter = ConverterService();
       final unicodeText = 'abc';
-      final actual = converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertToCmsCode(unicodeText);
       final expected = 'abc';
       expect(actual, expected);
     },
@@ -30,7 +30,7 @@ void main() {
     () async {
       final converter = ConverterService();
       final unicodeText = 'ᠮᠣᠩᠭᠣᠯ';
-      final actual = converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertToCmsCode(unicodeText);
       final expected = 'Moehgo&';
       expect(actual, expected);
     },
@@ -41,7 +41,7 @@ void main() {
     () async {
       final converter = ConverterService();
       final unicodeText = 'ᠰᠢᠨ᠎ᠡ';
-      final actual = converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertToCmsCode(unicodeText);
       final expected = 'Si%T';
       expect(actual, expected);
     },
@@ -52,7 +52,7 @@ void main() {
     () async {
       final converter = ConverterService();
       final unicodeText = 'ᠴᠢᠨᠣ᠎ᠡ';
-      final actual = converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertToCmsCode(unicodeText);
       final expected = 'CinOT';
       expect(actual, expected);
     },
@@ -63,7 +63,7 @@ void main() {
     () async {
       final converter = ConverterService();
       final unicodeText = 'ᠪᠢ';
-      final actual = converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertToCmsCode(unicodeText);
       final expected = 'buA';
       expect(actual, expected);
     },
@@ -74,7 +74,7 @@ void main() {
     () async {
       final converter = ConverterService();
       final unicodeText = 'ᠪᠣᠯ';
-      final actual = converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertToCmsCode(unicodeText);
       final expected = 'B&';
       expect(actual, expected);
     },
@@ -85,7 +85,7 @@ void main() {
     () async {
       final converter = ConverterService();
       final unicodeText = 'ᠪᠢᠴᠢᠭ';
-      final actual = converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertToCmsCode(unicodeText);
       final expected = 'buciit';
       expect(actual, expected);
     },
@@ -96,7 +96,7 @@ void main() {
     () async {
       final converter = ConverterService();
       final unicodeText = 'ᠪᠧᠵᠢᠩ';
-      final actual = converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertToCmsCode(unicodeText);
       final expected = 'b`jieit';
       expect(actual, expected);
     },
@@ -107,7 +107,7 @@ void main() {
     () async {
       final converter = ConverterService();
       final unicodeText = 'ᠤᠷᠭ᠎ᠠ';
-      final actual = converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertToCmsCode(unicodeText);
       final expected = 'for)T';
       expect(actual, expected);
     },
@@ -118,7 +118,7 @@ void main() {
     () async {
       final converter = ConverterService();
       final unicodeText = String.fromCharCode(Unicode.NNBS) + 'ᠦᠭᠡᠢ';
-      final actual = converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertToCmsCode(unicodeText);
       final expected = ' foikEI';
       expect(actual, expected);
     },
@@ -129,7 +129,7 @@ void main() {
     () async {
       final converter = ConverterService();
       final unicodeText = 'asf ᠦᠭᠡᠢ adfasd asdfa ᠦᠭᠡᠢadfsdf';
-      final actual = converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertToCmsCode(unicodeText);
       final expected = 'asf foikEI adfasd asdfa foikEIadfsdf';
       expect(actual, expected);
     },
@@ -140,7 +140,7 @@ void main() {
     () async {
       final converter = ConverterService();
       final unicodeText = 'ᠶᠠᠮᠠᠷ';
-      final actual = converter.convertUnicodeToCmsCode(unicodeText);
+      final actual = converter.convertToCmsCode(unicodeText);
       final expected = 'Yeme*';
       expect(actual, expected);
     },

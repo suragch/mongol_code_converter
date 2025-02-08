@@ -7,18 +7,18 @@ class ConverterManager extends ChangeNotifier {
   final textNotifier = ValueNotifier<String>('');
 
   void convertUnicodeToCmsCode() {
-    var text = converter.convertMenksoftToUnicode(textNotifier.value);
-    text = converter.convertUnicodeToCmsCode(textNotifier.value);
-    textNotifier.value = text;
+    // var text = converter.convertToUnicode(textNotifier.value);
+    // text = converter.convertToCmsCode(textNotifier.value);
+    textNotifier.value = converter.convertToCmsCode(textNotifier.value);
   }
 
   void convertUnicodeToMenksoft() {
-    final text = converter.convertUnicodeToMenksoft(textNotifier.value);
+    final text = converter.convertToMenksoft(textNotifier.value);
     textNotifier.value = text;
   }
 
   void convertMenksoftToUnicode() {
-    final text = converter.convertMenksoftToUnicode(textNotifier.value);
+    final text = converter.convertToUnicode(textNotifier.value);
     textNotifier.value = text;
   }
 
