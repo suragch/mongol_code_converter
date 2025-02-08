@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mongol/mongol.dart';
-import 'converter_manager.dart';
+import 'package:mongol_code_converter/converter/converter_service.dart';
 import 'package:flutter/services.dart';
 
 class ConverterPage extends StatefulWidget {
@@ -11,50 +11,39 @@ class ConverterPage extends StatefulWidget {
 }
 
 class _ConverterPageState extends State<ConverterPage> {
-  final manager = ConverterManager();
   final menksoftTextStyle = TextStyle(fontFamily: 'menksoft', fontSize: 20);
   TextStyle? currentTextStyle;
+  final converter = ConverterService();
+  final textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       minimum: EdgeInsets.all(20),
       child: Column(
-        children: <Widget>[
-          SizedBox(height: 20),
-          Text(
-            'Mongol Code',
-            style: TextStyle(fontSize: 20),
-          ),
-          SizedBox(height: 20),
+        children: [
           Expanded(
-            child: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                border: Border.all(),
-              ),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: ValueListenableBuilder<String>(
-                  valueListenable: manager.textNotifier,
-                  builder: (context, text, child) {
-                    return MongolText(
-                      text,
-                      style: currentTextStyle,
-                    );
-                  },
-                ),
+            child: MongolTextField(
+              controller: textController,
+              style: currentTextStyle,
+              maxLines: null,
+              expands: true,
+              textAlignHorizontal: TextAlignHorizontal.left,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                contentPadding: EdgeInsets.all(8),
               ),
             ),
           ),
           SizedBox(height: 20),
-          Row(
+          Wrap(
             children: [
               TextButton(
                 child: Text('Unicode'),
                 onPressed: () {
                   currentTextStyle = null;
-                  manager.convertMenksoftToUnicode();
+                  textController.text = converter.convertToUnicode(textController.text);
+                  setState(() {});
                 },
               ),
               SizedBox(width: 8),
@@ -62,7 +51,8 @@ class _ConverterPageState extends State<ConverterPage> {
                 child: Text('Menksoft'),
                 onPressed: () {
                   currentTextStyle = menksoftTextStyle;
-                  manager.convertUnicodeToMenksoft();
+                  textController.text = converter.convertToMenksoft(textController.text);
+                  setState(() {});
                 },
               ),
               SizedBox(width: 8),
@@ -70,18 +60,22 @@ class _ConverterPageState extends State<ConverterPage> {
                 child: Text('CMS'),
                 onPressed: () {
                   currentTextStyle = null;
-                  manager.convertUnicodeToCmsCode();
+                  textController.text = converter.convertToCmsCode(textController.text);
+                  setState(() {});
                 },
               ),
             ],
           ),
-          Row(
+          Wrap(
             children: [
               IconButton(
                 icon: Icon(Icons.paste),
                 onPressed: () async {
                   final data = await Clipboard.getData(Clipboard.kTextPlain);
-                  manager.setText(data?.text);
+                  if (data?.text != null) {
+                    textController.text = data!.text!;
+                    setState(() {});
+                  }
                 },
               ),
               SizedBox(width: 8),
@@ -89,7 +83,7 @@ class _ConverterPageState extends State<ConverterPage> {
                 icon: Icon(Icons.copy),
                 onPressed: () {
                   Clipboard.setData(
-                    ClipboardData(text: manager.textNotifier.value),
+                    ClipboardData(text: textController.text),
                   );
                 },
               ),
@@ -97,7 +91,9 @@ class _ConverterPageState extends State<ConverterPage> {
               IconButton(
                 icon: Icon(Icons.clear),
                 onPressed: () {
-                  manager.setText('');
+                  textController.text = '';
+                  currentTextStyle = null;
+                  setState(() {});
                 },
               ),
             ],

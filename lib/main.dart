@@ -18,6 +18,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Mongol Code'),
+        ),
         body: ConverterPage(),
       ),
     );

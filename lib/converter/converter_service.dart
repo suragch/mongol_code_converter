@@ -35,7 +35,7 @@ class ConverterService {
   }
 
   String _replacedBolorsoftRefinedModel(String text) {
-    final codeUnits = text.codeUnits;
+    final codeUnits = text.codeUnits.toList();
     for (int i = 0; i < codeUnits.length; i++) {
       if (codeUnits[i] == Bolorsoft.KE) {
         codeUnits[i] = Unicode.QA;
