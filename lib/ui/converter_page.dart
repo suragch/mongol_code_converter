@@ -81,7 +81,7 @@ class _ConverterPageState extends State<ConverterPage> {
                 icon: Icon(Icons.paste),
                 onPressed: () async {
                   final data = await Clipboard.getData(Clipboard.kTextPlain);
-                  manager.textNotifier.setText(data?.text);
+                  manager.setText(data?.text);
                 },
               ),
               SizedBox(width: 8),
@@ -97,7 +97,7 @@ class _ConverterPageState extends State<ConverterPage> {
               IconButton(
                 icon: Icon(Icons.clear),
                 onPressed: () {
-                  manager.textNotifier.setText('');
+                  manager.setText('');
                 },
               ),
             ],

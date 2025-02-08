@@ -101,4 +101,32 @@ class Cms {
   static const int KO = 0x007C; // |
   static const int INIT_TSA = 0x007D; // }
   static const int HAA = 0x007E; // ~
+
+  static bool isLetter(int? code) {
+    if (code == null) return false;
+    if (code >= FINA_KA && code <= NIRUGU) {
+      return code != RIGHT_PARENTHESIS && code != COMMA;
+    }
+    if (code == MEDI_LA_AFTER_BP) {
+      return true;
+    }
+    return code >= FINA_FA && code <= HAA;
+  }
+
+  static bool isVowel(int? nextChar) {
+    if (nextChar == null) return false;
+    return nextChar == MEDI_E_AFTER_BP ||
+        nextChar == INIT_E_LONG ||
+        nextChar == FINA_I ||
+        nextChar == FINA_O ||
+        nextChar == FINA_A_AFTER_MVS ||
+        nextChar == MEDI_I_DOUBLE_TOOTH ||
+        nextChar == FINA_A ||
+        nextChar == MEDI_E_STEM ||
+        nextChar == INIT_E ||
+        nextChar == MEDI_I ||
+        nextChar == MEDI_O ||
+        nextChar == MEDI_I_AFTER_BP ||
+        nextChar == MEDI_I_AFTER_BP;
+  }
 }

@@ -4,29 +4,25 @@ import 'package:mongol_code_converter/converter/converter_service.dart';
 class ConverterManager extends ChangeNotifier {
   final converter = ConverterService();
 
-  final textNotifier = TextNotifier();
+  final textNotifier = ValueNotifier<String>('');
 
   void convertUnicodeToCmsCode() {
     var text = converter.convertMenksoftToUnicode(textNotifier.value);
     text = converter.convertUnicodeToCmsCode(textNotifier.value);
-    textNotifier.setText(text);
+    textNotifier.value = text;
   }
 
   void convertUnicodeToMenksoft() {
     final text = converter.convertUnicodeToMenksoft(textNotifier.value);
-    textNotifier.setText(text);
+    textNotifier.value = text;
   }
 
   void convertMenksoftToUnicode() {
     final text = converter.convertMenksoftToUnicode(textNotifier.value);
-    textNotifier.setText(text);
+    textNotifier.value = text;
   }
-}
-
-class TextNotifier extends ValueNotifier<String> {
-  TextNotifier() : super('');
 
   void setText(String? text) {
-    value = text ?? '';
+    textNotifier.value = text ?? '';
   }
 }

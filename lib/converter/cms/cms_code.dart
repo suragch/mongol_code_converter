@@ -15,7 +15,6 @@ class CmsCode {
     final outputString = StringBuffer();
 
     final length = menksoftText.length;
-    //var lastCharWasBp = false;
     var lastChar = 0;
     for (var i = 0; i < length; i++) {
       final codeUnit = menksoftText.codeUnitAt(i);
@@ -812,5 +811,480 @@ class CmsCode {
   bool isMenksoftBp(int codeUnit) {
     return (codeUnit >= Menksoft.BA_START && codeUnit < Menksoft.MA_START) ||
         (codeUnit >= Menksoft.FA_START && codeUnit < Menksoft.KA_START);
+  }
+
+  String cmsToMenksoft(String cms) {
+    final outputString = StringBuffer();
+
+    int lastChar = 0;
+    final codeUnits = cms.codeUnits;
+    final length = codeUnits.length;
+    for (int i = 0; i < length; i++) {
+      final codeUnit = codeUnits[i];
+      final nextChar = (i < length - 1) ? codeUnits[i + 1] : null;
+      switch (codeUnit) {
+        case Cms.FINA_KA:
+          outputString.writeCharCode(Menksoft.FINA_KA);
+        case Cms.RIGHT_PARENTHESIS:
+          outputString.writeCharCode(Menksoft.RIGHT_PARENTHESIS);
+        case Cms.FINA_PA:
+          outputString.writeCharCode(Menksoft.FINA_PA);
+        case Cms.FINA_BA:
+          outputString.writeCharCode(Menksoft.FINA_BA);
+        case Cms.MEDI_NA_MVS:
+          outputString.writeCharCode(Menksoft.MEDI_NA_FVS2);
+        case Cms.FINA_LA:
+          outputString.writeCharCode(Menksoft.FINA_LA);
+        case Cms.MEDI_MA_LA:
+          outputString.writeCharCode(Menksoft.MEDI_MA_STEM_LONG);
+          outputString.writeCharCode(Menksoft.MEDI_LA_STEM_LONG);
+        case Cms.FINA_GA:
+          outputString.writeCharCode(Menksoft.FINA_GA);
+        case Cms.MEDI_GA_FVS2:
+          outputString.writeCharCode(Menksoft.MEDI_GA_FVS2);
+        case Cms.FINA_RA:
+          outputString.writeCharCode(Menksoft.FINA_RA);
+        case Cms.FINA_SHA:
+          outputString.writeCharCode(Menksoft.FINA_SHA);
+        case Cms.COMMA:
+          outputString.writeCharCode(Menksoft.COMMA);
+        case Cms.NIRUGU:
+          outputString.writeCharCode(Menksoft.NIRUGU);
+        case Cms.FULL_STOP:
+          outputString.writeCharCode(Menksoft.FULL_STOP);
+        case Cms.EXCLAMATION:
+          if (nextChar == Cms.QUESTION) {
+            outputString.writeCharCode(Menksoft.EXCLAMATION_QUESTION);
+            i++;
+          } else {
+            outputString.writeCharCode(Menksoft.QUESTION);
+          }
+        case Cms.ZERO:
+          outputString.writeCharCode(Menksoft.ZERO);
+        case Cms.ONE:
+          outputString.writeCharCode(Menksoft.ONE);
+        case Cms.TWO:
+          outputString.writeCharCode(Menksoft.TWO);
+        case Cms.THREE:
+          outputString.writeCharCode(Menksoft.THREE);
+        case Cms.FOUR:
+          outputString.writeCharCode(Menksoft.FOUR);
+        case Cms.FIVE:
+          outputString.writeCharCode(Menksoft.FIVE);
+        case Cms.SIX:
+          outputString.writeCharCode(Menksoft.SIX);
+        case Cms.SEVEN:
+          outputString.writeCharCode(Menksoft.SEVEN);
+        case Cms.EIGHT:
+          outputString.writeCharCode(Menksoft.EIGHT);
+        case Cms.NINE:
+          outputString.writeCharCode(Menksoft.NINE);
+        case Cms.LEFT_PARENTHESIS:
+          outputString.writeCharCode(Menksoft.LEFT_PARENTHESIS);
+        case Cms.MEDI_LA_AFTER_BP:
+          if (nextChar == Cms.HAA) {
+            outputString.writeCharCode(Menksoft.MEDI_LHA_BP);
+            i++;
+          } else {
+            outputString.writeCharCode(Menksoft.MEDI_LA_BP);
+          }
+        case Cms.LEFT_ANGLE_BRACKET:
+          if (nextChar == Cms.LEFT_ANGLE_BRACKET) {
+            outputString.writeCharCode(Menksoft.LEFT_DOUBLE_ANGLE_BRACKET);
+            i++;
+          } else {
+            outputString.writeCharCode(Menksoft.LEFT_ANGLE_BRACKET);
+          }
+        case Cms.COLON:
+          outputString.writeCharCode(Menksoft.COLON);
+        case Cms.RIGHT_ANGLE_BRACKET:
+          if (nextChar == Cms.RIGHT_ANGLE_BRACKET) {
+            outputString.writeCharCode(Menksoft.RIGHT_DOUBLE_ANGLE_BRACKET);
+            i++;
+          } else {
+            outputString.writeCharCode(Menksoft.RIGHT_ANGLE_BRACKET);
+          }
+        case Cms.QUESTION:
+          if (nextChar == Cms.EXCLAMATION) {
+            outputString.writeCharCode(Menksoft.QUESTION_EXCLAMATION);
+            i++;
+          } else {
+            outputString.writeCharCode(Menksoft.QUESTION);
+          }
+        case Cms.FINA_FA:
+          outputString.writeCharCode(Menksoft.FINA_FA);
+        case Cms.FINA_SHORT_LEFT_STROKE:
+          // This should always be caught by previous cases
+          outputString.writeCharCode(Cms.UNSUPPORTED);
+        case Cms.BO:
+          if (Cms.isLetter(lastChar)) {
+            outputString.writeCharCode(Menksoft.MEDI_BA_OU);
+          } else {
+            outputString.writeCharCode(Menksoft.INIT_BA_OU);
+          }
+        case Cms.INIT_CHA:
+          outputString.writeCharCode(Menksoft.INIT_CHA);
+        case Cms.INIT_TA:
+          if (nextChar == Cms.FINA_SHORT_LEFT_STROKE) {
+            outputString.writeCharCode(Menksoft.FINA_TA);
+            i++;
+          } else if (Cms.isLetter(lastChar)) {
+            outputString.writeCharCode(Menksoft.MEDI_TA_FVS1_STEM);
+          } else {
+            outputString.writeCharCode(Menksoft.INIT_TA_STEM);
+          }
+        case Cms.MEDI_E_AFTER_BP:
+          // This is ignoring the Menksoft.FINA_E_BP and Menksoft.MEDI_E_BP
+          // gender variants. Could do post-processing to fix vowel harmony.
+          if (nextChar == Cms.FINA_SHORT_LEFT_STROKE) {
+            outputString.writeCharCode(Menksoft.FINA_A_BP);
+            i++;
+          } else {
+            outputString.writeCharCode(Menksoft.MEDI_A_BP);
+          }
+        case Cms.INIT_E_LONG:
+          if (Cms.isLetter(lastChar)) {
+            outputString.writeCharCode(Menksoft.MEDI_A_FVS2);
+          } else {
+            outputString.writeCharCode(Menksoft.INIT_E);
+          }
+        case Cms.INIT_GA:
+          outputString.writeCharCode(Menksoft.INIT_GA_STEM);
+        case Cms.INIT_QA:
+          outputString.writeCharCode(Menksoft.INIT_QA_STEM);
+        case Cms.FINA_I:
+          if (Cms.isLetter(nextChar)) {
+            outputString.writeCharCode(Menksoft.MEDI_YA_FVS2);
+          } else {
+            outputString.writeCharCode(Menksoft.FINA_I);
+          }
+        case Cms.INIT_JA:
+          outputString.writeCharCode(Menksoft.INIT_JA_STEM);
+        case Cms.QO:
+          if (Cms.isLetter(lastChar)) {
+            outputString.writeCharCode(Menksoft.MEDI_QA_FEM_OU);
+          } else {
+            outputString.writeCharCode(Menksoft.INIT_QA_FEM_OU);
+          }
+        case Cms.INIT_LA:
+          if (nextChar == Cms.HAA) {
+            outputString.writeCharCode(Menksoft.INIT_LHA);
+            i++;
+          } else {
+            outputString.writeCharCode(Menksoft.INIT_LA_STEM_LONG);
+          }
+        case Cms.INIT_MA:
+          outputString.writeCharCode(Menksoft.INIT_MA_STEM_LONG);
+        case Cms.INIT_NA:
+          outputString.writeCharCode(Menksoft.INIT_NA_STEM);
+        case Cms.FINA_O:
+          // This is loosing vowel harmony information.
+          outputString.writeCharCode(Menksoft.FINA_U);
+        case Cms.PO:
+          if (Cms.isLetter(lastChar)) {
+            outputString.writeCharCode(Menksoft.MEDI_PA_OU);
+          } else {
+            outputString.writeCharCode(Menksoft.INIT_PA_OU);
+          }
+        case Cms.FO:
+          if (Cms.isLetter(lastChar)) {
+            outputString.writeCharCode(Menksoft.MEDI_FA_OU);
+          } else {
+            outputString.writeCharCode(Menksoft.INIT_FA_OU);
+          }
+        case Cms.INIT_RA:
+          outputString.writeCharCode(Menksoft.INIT_RA_STEM);
+        case Cms.INIT_SA:
+          outputString.writeCharCode(Menksoft.INIT_SA_STEM);
+        case Cms.FINA_A_AFTER_MVS:
+          // This is loosing vowel harmony information.
+          outputString.writeCharCode(Menksoft.FINA_A_MVS);
+        case Cms.MEDI_I_DOUBLE_TOOTH:
+          outputString.writeCharCode(Menksoft.MEDI_I_DOUBLE_TOOTH);
+        case Cms.MEDI_MA_UNKNOWN1:
+          outputString.writeCharCode(Menksoft.MEDI_MA_STEM_LONG);
+        case Cms.INIT_WA:
+          outputString.writeCharCode(Menksoft.INIT_WA);
+        case Cms.MEDI_LA_AFTER_LA:
+          outputString.writeCharCode(Menksoft.MEDI_LA_STEM_LONG);
+        case Cms.INIT_YA:
+          outputString.writeCharCode(Menksoft.INIT_YA);
+        case Cms.INIT_SHA:
+          outputString.writeCharCode(Menksoft.INIT_SHA_STEM);
+        case Cms.MEDI_ZA:
+          if (nextChar == Cms.FINA_SHORT_LEFT_STROKE) {
+            outputString.writeCharCode(Menksoft.FINA_ZA);
+            i++;
+          } else {
+            outputString.writeCharCode(Menksoft.MEDI_ZA);
+          }
+        case Cms.MEDI_KA:
+          if (Cms.isLetter(lastChar)) {
+            outputString.writeCharCode(Menksoft.MEDI_KA_STEM);
+          } else {
+            outputString.writeCharCode(Menksoft.INIT_KA);
+          }
+        case Cms.MEDI_TSA:
+          if (nextChar == Cms.FINA_SHORT_LEFT_STROKE) {
+            outputString.writeCharCode(Menksoft.FINA_TSA);
+            i++;
+          } else {
+            outputString.writeCharCode(Menksoft.MEDI_TSA);
+          }
+        case Cms.FINA_MA:
+          outputString.writeCharCode(Menksoft.FINA_MA);
+        case Cms.FINA_SA:
+          outputString.writeCharCode(Menksoft.FINA_SA);
+        case Cms.MEDI_WA_AFTER_BP:
+          if (Cms.isVowel(nextChar)) {
+            outputString.writeCharCode(Menksoft.MEDI_WA);
+          } else {
+            outputString.writeCharCode(Menksoft.MEDI_EE);
+          }
+        case Cms.FINA_A:
+          if (Cms.isVowel(lastChar)) {
+            outputString.writeCharCode(Menksoft.FINA_NA);
+          } else {
+            // This is loosing vowel harmony information.
+            outputString.writeCharCode(Menksoft.FINA_A);
+          }
+        case Cms.MEDI_BA:
+          if (Cms.isLetter(lastChar)) {
+            outputString.writeCharCode(Menksoft.MEDI_BA_STEM);
+          } else {
+            outputString.writeCharCode(Menksoft.INIT_BA);
+          }
+        case Cms.MEDI_CHA:
+          if (nextChar == Cms.FINA_SHORT_LEFT_STROKE) {
+            outputString.writeCharCode(Menksoft.FINA_CHA);
+            i++;
+          } else {
+            outputString.writeCharCode(Menksoft.MEDI_CHA);
+          }
+        case Cms.MEDI_DA:
+          if (nextChar == Cms.FINA_SHORT_LEFT_STROKE) {
+            outputString.writeCharCode(Menksoft.FINA_DA_FVS1);
+            i++;
+          } else if (!Cms.isLetter(lastChar)) {
+            outputString.writeCharCode(Menksoft.INIT_DA_FVS1);
+          } else {
+            outputString.writeCharCode(Menksoft.MEDI_TA);
+          }
+        case Cms.MEDI_E_STEM:
+          if (nextChar == Cms.MEDI_I) {
+            final nextNextChar = (i < codeUnits.length - 2) ? codeUnits[i + 2] : null;
+            if (nextNextChar == Cms.FINA_LONG_LEFT_STROKE) {
+              outputString.writeCharCode(Menksoft.FINA_ANG);
+              i += 2;
+            } else {
+              outputString.writeCharCode(Menksoft.MEDI_I_FVS1);
+              i++;
+            }
+          } else if (nextChar == Cms.MEDI_O) {
+            final nextNextChar = (i < codeUnits.length - 2) ? codeUnits[i + 2] : null;
+            if (nextNextChar == Cms.MEDI_I) {
+              outputString.writeCharCode(Menksoft.MEDI_UE_FVS2);
+              i += 2;
+            } else {
+              outputString.writeCharCode(Menksoft.MEDI_U_FVS1);
+              i++;
+            }
+          } else if (nextChar == Cms.MEDI_GA_NG) {
+            outputString.writeCharCode(Menksoft.MEDI_ANG_STEM);
+            i++;
+          } else if (nextChar == Cms.MEDI_E_STEM) {
+            final nextNextChar = (i < codeUnits.length - 2) ? codeUnits[i + 2] : null;
+            if (Cms.isVowel(lastChar)) {
+              if (Cms.isVowel(nextNextChar)) {
+                outputString.writeCharCode(Menksoft.MEDI_QA_STEM);
+                i++;
+              } else {
+                outputString.writeCharCode(Menksoft.MEDI_GA);
+                i++;
+              }
+            } else {
+              // last char is consonant
+              if (Cms.isVowel(nextNextChar)) {
+                outputString.writeCharCode(Menksoft.MEDI_QA_STEM);
+                i++;
+              } else {
+                outputString.writeCharCode(Menksoft.MEDI_NA_STEM);
+                i++;
+              }
+            }
+          } else {
+            if (Cms.isVowel(lastChar)) {
+              outputString.writeCharCode(Menksoft.MEDI_NA_STEM);
+            } else {
+              outputString.writeCharCode(Menksoft.MEDI_A);
+            }
+          }
+        case Cms.INIT_E:
+          if (nextChar == Cms.FINA_A) {
+            outputString.writeCharCode(Menksoft.ISOL_A);
+            i++;
+          } else if (nextChar == Cms.MEDI_E_STEM) {
+            outputString.writeCharCode(Menksoft.INIT_A);
+            i++;
+          } else if (nextChar == Cms.FINA_LONG_LEFT_STROKE) {
+            outputString.writeCharCode(Menksoft.ISOL_E);
+            i++;
+          } else if (nextChar == Cms.FINA_I) {
+            outputString.writeCharCode(Menksoft.ISOL_I);
+            i++;
+          } else if (nextChar == Cms.MEDI_I) {
+            outputString.writeCharCode(Menksoft.INIT_I);
+            i++;
+          } else if (nextChar == Cms.MEDI_O) {
+            final nextNextChar = (i < codeUnits.length - 2) ? codeUnits[i + 2] : null;
+            if (nextNextChar == Cms.FINA_SHORT_LEFT_STROKE) {
+              outputString.writeCharCode(Menksoft.ISOL_OE);
+              i += 2;
+            } else if (nextNextChar == Cms.MEDI_I) {
+              outputString.writeCharCode(Menksoft.INIT_UE);
+              i += 2;
+            } else {
+              outputString.writeCharCode(Menksoft.INIT_U);
+              i++;
+            }
+          } else if (nextChar == Cms.FINA_O) {
+            outputString.writeCharCode(Menksoft.ISOL_UE_FVS1);
+            i++;
+          } else if (nextChar == Cms.MEDI_WA_AFTER_STEM) {
+            final nextNextChar = (i < codeUnits.length - 2) ? codeUnits[i + 2] : null;
+            if (nextNextChar == Cms.FINA_SHORT_LEFT_STROKE) {
+              outputString.writeCharCode(Menksoft.ISOL_EE);
+              i += 2;
+            } else {
+              outputString.writeCharCode(Menksoft.INIT_EE);
+              i++;
+            }
+          } else if (nextChar == Cms.HAA) {
+            outputString.writeCharCode(Menksoft.INIT_HAA);
+            i++;
+          } else {
+            outputString.writeCharCode(Menksoft.INIT_E);
+          }
+        case Cms.MEDI_GA_DOTTED:
+          outputString.writeCharCode(Menksoft.MEDI_GA_FVS1_STEM);
+        case Cms.MEDI_GA_NG:
+          outputString.writeCharCode(Menksoft.MEDI_GA_FVS3_STEM);
+        case Cms.MEDI_I:
+          if (nextChar == Cms.FINA_LONG_LEFT_STROKE) {
+            outputString.writeCharCode(Menksoft.FINA_GA_FVS2);
+            i++;
+          } else {
+            outputString.writeCharCode(Menksoft.MEDI_I);
+          }
+        case Cms.MEDI_JA:
+          if (nextChar == Cms.FINA_SHORT_LEFT_STROKE) {
+            outputString.writeCharCode(Menksoft.FINA_JA);
+            i++;
+          } else {
+            outputString.writeCharCode(Menksoft.MEDI_JA);
+          }
+        case Cms.MEDI_GA_FEMININE:
+          if (Cms.isLetter(lastChar)) {
+            outputString.writeCharCode(Menksoft.MEDI_GA_FEM);
+          } else {
+            outputString.writeCharCode(Menksoft.INIT_GA_FEM);
+          }
+        case Cms.MEDI_LA:
+          if (nextChar == Cms.HAA) {
+            outputString.writeCharCode(Menksoft.MEDI_LHA);
+            i++;
+          } else {
+            outputString.writeCharCode(Menksoft.MEDI_LA_STEM_LONG);
+          }
+        case Cms.MEDI_MA_STEM_LONG:
+          outputString.writeCharCode(Menksoft.MEDI_MA_STEM_LONG);
+        case Cms.MEDI_NA:
+          outputString.writeCharCode(Menksoft.MEDI_NA_STEM);
+        case Cms.MEDI_O:
+          if (nextChar == Cms.MEDI_I) {
+            outputString.writeCharCode(Menksoft.MEDI_UE_FVS1);
+            i++;
+          } else if (nextChar == Cms.FINA_SHORT_LEFT_STROKE) {
+            outputString.writeCharCode(Menksoft.FINA_UE_FVS1);
+            i++;
+          } else if (nextChar == Cms.FINA_LONG_LEFT_STROKE) {
+            outputString.writeCharCode(Menksoft.FINA_BA_FVS1);
+            i++;
+          } else if (nextChar == Cms.MEDI_E_STEM) {
+            outputString.writeCharCode(Menksoft.MEDI_DA);
+            i++;
+          } else if (nextChar == Cms.FINA_A) {
+            outputString.writeCharCode(Menksoft.FINA_DA);
+            i++;
+          } else if (Cms.isLetter(nextChar)) {
+            outputString.writeCharCode(Menksoft.MEDI_U);
+          } else {
+            outputString.writeCharCode(Menksoft.FINA_U_FVS1);
+          }
+        case Cms.MEDI_PA:
+          if (Cms.isLetter(lastChar)) {
+            outputString.writeCharCode(Menksoft.MEDI_PA_STEM);
+          } else {
+            outputString.writeCharCode(Menksoft.INIT_PA_STEM);
+          }
+        case Cms.MEDI_FA:
+          if (Cms.isLetter(lastChar)) {
+            outputString.writeCharCode(Menksoft.MEDI_FA_STEM);
+          } else {
+            outputString.writeCharCode(Menksoft.INIT_FA_STEM);
+          }
+        case Cms.MEDI_RA:
+          outputString.writeCharCode(Menksoft.MEDI_RA_STEM);
+        case Cms.MEDI_SA:
+          outputString.writeCharCode(Menksoft.MEDI_SA_STEM);
+        case Cms.FINA_LONG_LEFT_STROKE:
+          outputString.writeCharCode(Menksoft.ISOL_A_FVS1);
+        case Cms.MEDI_I_AFTER_BP:
+          if (nextChar == Cms.FINA_SHORT_LEFT_STROKE) {
+            outputString.writeCharCode(Menksoft.FINA_I_BP);
+            i++;
+          } else {
+            outputString.writeCharCode(Menksoft.MEDI_I_BP);
+          }
+        case Cms.MEDI_MA_UNKNOWN2:
+          outputString.writeCharCode(Menksoft.MEDI_MA_STEM_LONG);
+        case Cms.MEDI_WA_AFTER_STEM:
+          if (nextChar == Cms.FINA_SHORT_LEFT_STROKE) {
+            outputString.writeCharCode(Menksoft.FINA_EE);
+            i++;
+          } else if (Cms.isVowel(nextChar)) {
+            outputString.writeCharCode(Menksoft.MEDI_WA);
+          } else {
+            outputString.writeCharCode(Menksoft.MEDI_EE);
+          }
+        case Cms.MEDI_LA_BEFORE_LA:
+          outputString.writeCharCode(Menksoft.MEDI_LA_STEM_LONG);
+        case Cms.MEDI_YA:
+          outputString.writeCharCode(Menksoft.MEDI_YA_FVS1);
+        case Cms.MEDI_SHA:
+          outputString.writeCharCode(Menksoft.MEDI_SHA_STEM);
+        case Cms.INIT_ZA:
+          outputString.writeCharCode(Menksoft.INIT_ZA);
+        case Cms.KO:
+          if (Cms.isLetter(lastChar)) {
+            outputString.writeCharCode(Menksoft.MEDI_KA_OU);
+          } else {
+            outputString.writeCharCode(Menksoft.INIT_KA_OU);
+          }
+        case Cms.INIT_TSA:
+          outputString.writeCharCode(Menksoft.INIT_TSA);
+        case Cms.HAA:
+          if (nextChar == Cms.FINA_SHORT_LEFT_STROKE) {
+            outputString.writeCharCode(Menksoft.FINA_HAA);
+            i++;
+          } else {
+            outputString.writeCharCode(Menksoft.MEDI_HAA);
+          }
+        default:
+          outputString.writeCharCode(codeUnit);
+      }
+      lastChar = codeUnit;
+    }
+    return outputString.toString();
   }
 }
